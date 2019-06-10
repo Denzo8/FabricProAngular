@@ -1,0 +1,128 @@
+<div class="row justify-content-center">
+        <div class="col-8">
+            <div class="input-group mb-2">
+                
+                <input #input (keyup)="SearchProject(input.value)"  type="text" class="form-control" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+        </div>
+    </div>
+
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="text-right">
+                    <button routerLinkActive="active-link" [routerLink]="['/project','0']" type=" button " class="btn waves-effect btn-primary ">
+                <i class="fa fa-plus "></i>
+                Crear Proyecto
+            </button>
+
+                </div>
+
+<!-- ===================TABLA====================== -->
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cliente</th>
+                            <th>Fecha de inicio</th>
+                            <th>Fecha final</th>
+                            <th >Recursos asignados</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+              <!-- ===================MUESTRA PROYECTOS====================== -->
+                        <tr *ngFor="let project of projects ">
+                            <td>{{project.name}}</td>
+                            <td>{{project.client}}</td>
+                            <td>{{project.date_start| date:'yyyy-MM-dd'}}</td>
+                            <td>{{project.date_end  | date:'yyyy-MM-dd'}}</td>
+                               <!-- ===================MUESTRA LOS RECURSOS DEL PROYECTO SELECCIONADO====================== -->
+                            <td > 
+                                    <div class="btn-group">
+                                        <a (click)="ShowResources(project.projectID)" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                            Mostrar recursos
+                                        </a>
+                                            <div class="dropdown-menu scrollable-menu">
+                                                    <ul class="list-group"  >
+                                                            <li  class="list-group-item d-flex justify-content-between align-items-center"  *ngFor="let resource of relation" >
+                        
+                                                                {{resource.name}}
+                                                            
+                                                                <button *ngIf="resource" (click)="DeleteResourceProject(project.projectID,resource.resourceID) " class="btn btn-danger ">
+                                                                        <i class="fa fa-trash-o "></i>
+                                                                    </button>
+                                                                   
+                                                                   
+                                                            </li>
+   
+                                                        </ul>
+                                                    
+                                            </div>
+                                        </div>
+
+                            </td>
+                               <!-- ===================FIN MUESTRA LOS RECURSOS ====================== -->
+                            <button [routerLink]="['/project', project.projectID]" type="button" class="btn btn-primary button-space">
+                              <i class="fa fa-save "></i>
+                          </button>
+                          
+                            <button (click)="DeleteProject(project) " type="button"  class="btn btn-danger button-space">
+                              <i class="fa fa-trash-o "></i>
+                          </button>
+                          
+                        </tr>
+            <!-- ===================MUESTRA PROYECTOS====================== -->
+                    </tbody>
+                    
+                </table>
+                <!-- ===================FIN TABLA====================== -->
+                <!-- <h3 class="card-title">Usuarios registrados (<small>{{totalProjects}}</small>)</h3> -->
+
+              <!-- ===================PAGINACION====================== -->
+              <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item ">
+                            <a class="page-link " (click)="changePageProject(-1)">Anterior</a>
+                            
+                        </li>
+        
+                        <li *ngIf="this.page!=0" class="page-item"><a class="page-link">{{page-1}}</a></li>
+                    
+                        <li class="page-item active">
+                            <a class="page-link">{{page}} <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link">{{page+1}}</a></li>
+                        <li class="page-item">
+                            <a class="page-link pointer" (click)="changePageProject(1)">Siguiente</a>
+                        </li>
+                     
+                                
+                                        <div class="dropdown col-1">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  {{row}}
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                  <button (click)="changeRowProject(5)" class="dropdown-item" type="button">5</button>
+                                                  <button (click)="changeRowProject(10)" class="dropdown-item" type="button"> 10</button>
+                                                  <button (click)="changeRowProject(15)" class="dropdown-item" type="button">15</button>
+                                                  <button (click)="changeRowProject(20)" class="dropdown-item" type="button">20</button>
+                                                </div>
+                                              </div>
+                                
+                  
+                        
+                        
+                    </ul>
+                   
+                </nav>
+        <!-- ===================FIN PAGINACION====================== -->
+
+            </div>
+        </div>
+        
+    </div>
+  
+</div>

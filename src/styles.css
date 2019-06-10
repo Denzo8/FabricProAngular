@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+.button-space{
+    margin: 13px 12px 12px 10px;
+  }
+  .scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}

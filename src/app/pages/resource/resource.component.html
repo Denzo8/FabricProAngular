@@ -1,0 +1,27 @@
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <div class="card card-body">
+            <h3 class="box-title m-b-4"> Recurso</h3>
+
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <form #f="ngForm" ngNativeValidate (ngSubmit)="SaveResource(f.value)">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input [(ngModel)]="resource.name" name="name" type="text" class="form-control" placeholder="Nombre de recurso" requiered>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="">Puesto</label>
+                            <input [(ngModel)]="resource.job" name="client" type="text" class="form-control" placeholder="Puesto" requiered>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary  button-space">Guardar</button>
+                        <button type="submit" class="btn btn-danger button-space"[routerLink]="['/resources']">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

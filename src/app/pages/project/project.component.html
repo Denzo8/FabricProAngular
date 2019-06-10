@@ -1,0 +1,81 @@
+<div class="row d-flex justify-content-center">
+    <div class="col-md-5">
+        <div class="card card-body">
+            <h3 class="box-title m-b-4"> Proyecto</h3>
+
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                      <!-- ===================MUESTRA PROYECTO====================== -->
+                    <form #f="ngForm" ngNativeValidate (ngSubmit)="SaveProject(f.value)">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input [(ngModel)]="project.name" name="name" type="text" class="form-control" placeholder="Nombre de proyecto" requiered>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="">Cliente</label>
+                            <input [(ngModel)]="project.client" name="client" type="text" class="form-control" placeholder="Nombre del cliente" requiered>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="">Fecha de inicio</label>
+                            <input [ngModel]="project.date_start | date:'yyyy-MM-dd' " name="date_start" type="date" class="form-control" placeholder="Fecha de inicio" requiered>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="">Fecha final</label>
+                            <input [ngModel]="project.date_end | date:'yyyy-MM-dd'" name="date_end" type="date" class="form-control" placeholder="Fecha final" requiered>
+
+                        </div>
+                          <!-- ===================MUESTRA LOS RECURSOS DEL PROYECTO SELECCIONADO====================== -->
+                        <div class="btn-group ">
+                            
+                                <a (click)="ShowResources(project.projectID)" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mostrar recursos</a>
+                                <div class="dropdown-menu scrollable-menu" role="menu">
+                                        <ul class="list-group-flush "  >
+                                                <li  class="list-group-item d-flex justify-content-between align-items-center"  *ngFor="let resource of relation">
+            
+                                                    {{resource.name}}
+                                                    <button *ngIf="resource" (click)="DeleteResourceProject(project.projectID,resource.resourceID) " class="btn btn-danger ">
+                                                            <i class="fa fa-trash-o "></i>
+                                                        </button>
+                                                </li>
+                                            </ul>
+                                </div>
+                            </div>
+                            
+                    <!-- ===================FIN MUESTRA LOS RECURSOS ====================== -->
+                 
+                            
+            
+                    <!-- ===================ASIGNA RECURSOS AL PROYECTO SELECCIONADO====================== -->
+                    <div class="container">
+                        <div class="form-group ">
+                            <label for="">Agregar recursos</label>
+
+                            <select  name="resource" class="form-control selectpicker " multiple  data-show-subtext="true" data-live-search="true"  [(ngModel)]="selectedToAdd" (change)="saveMultipleResources($event.target.value)"  >
+                                
+                               
+                                <option *ngFor="let resource of resources" [value]="resource.resourceID" >
+                                    
+                                    {{resource.name}}          
+                                   
+                                </option>
+                                
+                            </select> 
+ 
+                                
+                        </div>
+                    </div>
+                    <!-- ===================FIN ASIGNA RECURSOS AL PROYECTO SELECCIONADO====================== -->
+
+                        <button type="submit" class="btn btn-primary button-space" (click)="AsignResources()">Guardar</button>
+                        <button type="submit" class="btn btn-danger button-space"[routerLink]="['/projects']">Cancelar</button>
+                        
+                    </form>
+                            <!-- ===================FIN MUESTRA PROYECTO====================== -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
